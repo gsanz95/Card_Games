@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *  Deck class contains a group of card classes
@@ -88,6 +89,10 @@ class Deck {
 
         outputText.append(this.ownerName).append(" ").append(this.deckScore);
         return outputText.toString();
+    }
+
+    public void shuffleDeck(){
+        Collections.shuffle(this.cards);
     }
 
 }

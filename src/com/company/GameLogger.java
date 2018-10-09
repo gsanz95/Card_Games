@@ -12,12 +12,14 @@ class GameLogger {
     void printDeck(Deck cardDeck){
         ArrayList<Card> cards = cardDeck.getCards();
         int cardCount = 0;
+
+        System.out.println(cardDeck.getOwnerName());
         for (Card card : cards) {
             System.out.println(card.toString());
             cardCount += 1;
         }
 
-        System.out.println("Total Cards: " + cardCount);
+        //System.out.println("Total Cards: " + cardCount);
     }
 
     /**

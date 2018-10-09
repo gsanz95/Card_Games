@@ -1,25 +1,51 @@
 package com.company;
 
-class BlackJack extends GameMode {
+class BlackJack {
 
+    private int STARTING_CARDS_NUMBER;
+    private Deck cardDeck;
+    private Deck playerHand;
+    private Deck dealerHand;
     private GameLogger logger;
     private GameController gameControl;
 
     /**
      * Constructor
      */
-    public BlackJack() {
+    public BlackJack(Deck playerHand, Deck dealerHand, Deck mainDeck) {
         this.logger = new GameLogger();
         this.gameControl = new GameController();
+        this.STARTING_CARDS_NUMBER = 2;
+        this.cardDeck = mainDeck;
+        this.playerHand = playerHand;
+        this.dealerHand = dealerHand;
     }
 
     /**
      * Starts the game mode
-     *
-     * @param playerDecks Decks containing decks for the players
      */
-    void startGame(Deck[] playerDecks){
+    void startGame(){
+        dealCards(playerHand);
+        logger.printDeck(playerHand);
 
+        dealCards(dealerHand);
+        logger.printDeck(dealerHand);
+    }
+
+    void dealCards(Deck destinationDeck) {
+        Card[] dealtCards = new Card[STARTING_CARDS_NUMBER];
+        for(int i = 0; i < STARTING_CARDS_NUMBER; i++)
+            dealtCards[i] = cardDeck.popCard();
+
+        for(Card singleCard : dealtCards)
+            destinationDeck.addCard(singleCard);
+    }
+
+    void sendAction(int actionToPerform) {
+        if (actionToPerform == 1)
+            playerHand.addCard(cardDeck.popCard());
+
+        logger.printDeck(playerHand);
     }
 
     /**
@@ -29,26 +55,6 @@ class BlackJack extends GameMode {
      * @param decksToCount Decks containing cards which are the points.
      */
     void finalizeGame(Deck[] decksToCount){
-
-    }
-
-    /**
-     * Tries to play the round and prints a message if a deck is empty
-     *
-     * @param playerDecks decks of the players
-     */
-    void tryPlayRound(Deck[] playerDecks){
-
-    }
-
-    /**
-     * Plays a round by getting a card from each player and finding the winner.
-     * If a war is started, playWarRound is called to determine the winner.
-     *
-     * @param playerDecks Decks for each player
-     * @throws EmptyDeckException Thrown if any deck in the game is empty
-     */
-    void playRound(Deck[] playerDecks) throws EmptyDeckException{
 
     }
 }

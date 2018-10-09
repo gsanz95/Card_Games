@@ -8,6 +8,8 @@ package com.company;
  */
 public class Main {
 
+    private static int PLAYER_POSITION = 0;
+    private static int DEALER_POSITION = 1;
     private static int MAX_ROUNDS = 50;
     private static PrepareGame gamePreparer = new PrepareGame();
     private static GameLogger logger = new GameLogger();
@@ -19,9 +21,10 @@ public class Main {
 
         Deck mainDeck = gamePreparer.makeDeck();
 
-        playUnlimitedWar(mainDeck);
-        playThreePlayerWar(mainDeck);
-        playClassicWar(mainDeck);
+        //playUnlimitedWar(mainDeck);
+        //playThreePlayerWar(mainDeck);
+        //playClassicWar(mainDeck);
+        playBlackJack(mainDeck);
     }
 
     /**
@@ -89,5 +92,19 @@ public class Main {
         logger.printGameStart("Classic War");
         ClassicWar warGame = new ClassicWar(numberOfPlayers);
         warGame.startGame(playerDecks);
+    }
+
+    static void playBlackJack(Deck mainDeck){
+        Deck[] decksInPlay = new Deck[2];
+
+        decksInPlay[PLAYER_POSITION] = new Deck("Player");
+        decksInPlay[DEALER_POSITION] = new Deck("Dealer");
+
+        BlackJack blackJackGame = new BlackJack(decksInPlay[PLAYER_POSITION], decksInPlay[DEALER_POSITION], mainDeck);
+
+        blackJackGame.startGame();
+
+        int playerAction = 1;                                           // 0 to Hold, 1 to Draw
+        blackJackGame.sendAction(playerAction);
     }
 }
