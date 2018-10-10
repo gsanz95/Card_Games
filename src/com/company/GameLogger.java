@@ -60,6 +60,20 @@ class GameLogger {
         System.out.println("War!");
     }
 
+    void printPossibleScores(int[][] scoresToPrint) {
+        StringBuilder outputText = new StringBuilder();
+        for(int i = 0; i < 2; i++) {
+            outputText.append("Possible Score: ");
+
+            for(int j = 0; j < 2; j++)
+                outputText.append(scoresToPrint[i][j]).append(" ");
+
+            outputText.append("\n");
+        }
+
+        System.out.println(outputText.toString());
+    }
+
     /**
      * Prints the scores of all the decks received.
      *

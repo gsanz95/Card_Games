@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Scanner;
+
 /**
  *  Main class for the Game of War
  *
@@ -104,7 +106,20 @@ public class Main {
 
         blackJackGame.startGame();
 
-        int playerAction = 1;                                           // 0 to Hold, 1 to Draw
-        blackJackGame.sendAction(playerAction);
+        Scanner actionReader = new Scanner(System.in);
+
+        // 0 to Hold, 1 to Draw
+        int playerAction = 1;
+        while (playerAction == 1) {
+            playerAction = actionReader.nextInt();
+            blackJackGame.sendAction(playerAction);
+
+
+            if(decksInPlay[PLAYER_POSITION].getSize() >= 4)
+                break;
+        }
+
+        blackJackGame.playDealerRound();
+
     }
 }
