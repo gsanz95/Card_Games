@@ -1,13 +1,11 @@
 package com.company;
 
-import java.util.Arrays;
-
 class BlackJack {
 
     private int STARTING_CARDS_NUMBER;
     private Deck cardDeck;
     private Deck playerHand;
-    private int[][] possibleScores;
+    private int[] possibleScores;
     private Deck dealerHand;
     private GameLogger logger;
     private GameController gameControl;
@@ -22,7 +20,7 @@ class BlackJack {
         this.cardDeck = mainDeck;
         this.playerHand = playerHand;
         this.dealerHand = dealerHand;
-        this.possibleScores = new int[2][2];
+        this.possibleScores = new int[2];
     }
 
     /**
@@ -31,13 +29,13 @@ class BlackJack {
     void startGame(){
         dealCards(playerHand);
         recordScore(possibleScores, playerHand, 0);
-        logger.printDeck(playerHand);
+        //logger.printDeck(playerHand);
 
         dealCards(dealerHand);
         recordScore(possibleScores, dealerHand, 1);
 
-        logger.printDeck(dealerHand);
-        logger.printPossibleScores(possibleScores);
+        //logger.printDeck(dealerHand);
+        //logger.printPossibleScores(possibleScores);
     }
 
     void dealCards(Deck destinationDeck) {
@@ -50,20 +48,12 @@ class BlackJack {
             destinationDeck.addCard(singleCard);
     }
 
-    void recordScore(int[][] scores, Deck cardDeck, int handToRecord) {
+    void recordScore(int[] scores, Deck cardDeck, int handToRecord) {
         for (Card singleCard : cardDeck.getCards()) {
             if(singleCard.getRank() >= 10)
-                scores[handToRecord][0] += 10;
+                scores[handToRecord] += 10;
             else
-                scores[handToRecord][0] += singleCard.getRank();
-
-            if(singleCard.getRank() == 1) {
-                scores[handToRecord][1] += 11;
-            } else if(singleCard.getRank() >= 10){
-                scores[handToRecord][1] += 10;
-            }else {
-                scores[handToRecord][1] += singleCard.getRank();
-            }
+                scores[handToRecord] += singleCard.getRank();
         }
     }
 

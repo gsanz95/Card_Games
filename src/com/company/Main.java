@@ -102,6 +102,8 @@ public class Main {
         decksInPlay[PLAYER_POSITION] = new Deck("Player");
         decksInPlay[DEALER_POSITION] = new Deck("Dealer");
 
+        Network blacjackNetwork = new Network(2,5,2,0.1);
+
         BlackJack blackJackGame = new BlackJack(decksInPlay[PLAYER_POSITION], decksInPlay[DEALER_POSITION], mainDeck);
 
         blackJackGame.startGame();
@@ -113,13 +115,14 @@ public class Main {
         while (playerAction == 1) {
             playerAction = actionReader.nextInt();
             blackJackGame.sendAction(playerAction);
-
+            //TO-DO Print Occurrences less and less often after 50 prints
 
             if(decksInPlay[PLAYER_POSITION].getSize() >= 4)
                 break;
         }
 
-        blackJackGame.playDealerRound();
 
+        // TO-DO Print final network
+        blackJackGame.playDealerRound();
     }
 }

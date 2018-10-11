@@ -60,18 +60,15 @@ class GameLogger {
         System.out.println("War!");
     }
 
-    void printPossibleScores(int[][] scoresToPrint) {
+    void printPossibleScores(int[] scoresToPrint) {
         StringBuilder outputText = new StringBuilder();
+
         for(int i = 0; i < 2; i++) {
-            outputText.append("Possible Score: ");
-
-            for(int j = 0; j < 2; j++)
-                outputText.append(scoresToPrint[i][j]).append(" ");
-
-            outputText.append("\n");
+            outputText.append("Score is ");
+            outputText.append(scoresToPrint[i]);
+            System.out.println(outputText);
+            outputText.setLength(0);
         }
-
-        System.out.println(outputText.toString());
     }
 
     /**
