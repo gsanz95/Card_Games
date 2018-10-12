@@ -11,15 +11,13 @@ class GameLogger {
      */
     void printDeck(Deck cardDeck){
         ArrayList<Card> cards = cardDeck.getCards();
-        int cardCount = 0;
 
         System.out.println(cardDeck.getOwnerName());
         for (Card card : cards) {
             System.out.println(card.toString());
-            cardCount += 1;
         }
 
-        //System.out.println("Total Cards: " + cardCount);
+        System.out.println("Score: " + cardDeck.getDeckScore());
     }
 
     /**
@@ -58,17 +56,6 @@ class GameLogger {
      */
     void printWar(){
         System.out.println("War!");
-    }
-
-    void printPossibleScores(int[] scoresToPrint) {
-        StringBuilder outputText = new StringBuilder();
-
-        for(int i = 0; i < 2; i++) {
-            outputText.append("Score is ");
-            outputText.append(scoresToPrint[i]);
-            System.out.println(outputText);
-            outputText.setLength(0);
-        }
     }
 
     /**

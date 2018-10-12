@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.Scanner;
-
 /**
  *  Main class for the Game of War
  *
@@ -102,27 +100,34 @@ public class Main {
         decksInPlay[PLAYER_POSITION] = new Deck("Player");
         decksInPlay[DEALER_POSITION] = new Deck("Dealer");
 
-        Network blacjackNetwork = new Network(2,5,2,0.1);
+        NetworkController networkControl = new NetworkController();
 
         BlackJack blackJackGame = new BlackJack(decksInPlay[PLAYER_POSITION], decksInPlay[DEALER_POSITION], mainDeck);
 
         blackJackGame.startGame();
 
-        Scanner actionReader = new Scanner(System.in);
-
         // 0 to Hold, 1 to Draw
-        int playerAction = 1;
-        while (playerAction == 1) {
-            playerAction = actionReader.nextInt();
-            blackJackGame.sendAction(playerAction);
-            //TO-DO Print Occurrences less and less often after 50 prints
+        for(int i = 0; i < 1; i++) {
+            int idealAction = blackJackGame.getIdealAction();
+            double[] inputs = {decksInPlay[PLAYER_POSITION].getDeckScore(),
+                                decksInPlay[DEALER_POSITION].getDeckScore()};
+            networkControl.runNetwork(inputs, idealAction, 0);
+            logger.printDeck(decksInPlay[PLAYER_POSITION]);
 
-            if(decksInPlay[PLAYER_POSITION].getSize() >= 4)
-                break;
+            idealAction = blackJackGame.getIdealAction();
+            inputs[0] = decksInPlay[PLAYER_POSITION].getDeckScore();
+            inputs[1] = decksInPlay[DEALER_POSITION].getDeckScore();
+            networkControl.runNetwork(inputs, idealAction, 1);
+            logger.printDeck(decksInPlay[PLAYER_POSITION]);
+            logger.printDeck(decksInPlay[DEALER_POSITION]);
+
+            blackJackGame.playDealerRound();
+            blackJackGame.finalizeGame();
+
+            //TO-DO Print Occurrences less and less often after 50 prints
         }
 
 
         // TO-DO Print final network
-        blackJackGame.playDealerRound();
     }
 }

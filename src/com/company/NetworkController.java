@@ -2,44 +2,38 @@ package com.company;
 
 class NetworkController {
 
-    Network firstNetwork;
-    Network secondNetwork;
+    Network[] groupedNetworks;
     int networkConclusion;
     int totalRight;
     int totalWrong;
-    int desiredOutput;
     boolean changedWeights;
 
     public NetworkController() {
 
-        this.firstNetwork = new Network(2,5,2,0.3);
-        this.secondNetwork = new Network(2,5,2,0.3);
+        this.groupedNetworks = new Network[2];
+        this.groupedNetworks[0] = new Network(2, 5, 2, 0.3);
+        this.groupedNetworks[1] = new Network(2, 5, 2, 0.3);
         this.totalRight = 0;
         this.totalWrong = 0;
         this.changedWeights = true;
     }
 
-    int getNetworkConclusion() {
-        return this.networkConclusion;
-    }
+    void runNetwork(double[] inputs, int idealAction, int networkNumber) {
+        this.networkConclusion = groupedNetworks[networkNumber].predictAction(inputs);
 
-    int runFirstNetwork(double[] inputs, int idealAction){
-        this.networkConclusion = firstNetwork.predictAction(inputs);
+        if (changedWeights == true)
+            groupedNetworks[networkNumber].printNetwork(networkNumber);
 
-        if(changedWeights == true)
-            firstNetwork.printNetwork();
-
-        if(this.networkConclusion == idealAction)
+        if (this.networkConclusion == idealAction)
             totalRight += 1;
         else {
             totalWrong += 1;
 
-            firstNetwork.adjustNetwork(inputs, idealAction);
-            if(changedWeights == true) {
-                firstNetwork.printNetwork();
+            groupedNetworks[networkNumber].adjustNetwork(inputs, idealAction);
+            if (changedWeights == true) {
+                groupedNetworks[networkNumber].printNetwork(networkNumber);
                 changedWeights = false;
             }
         }
-        return -1;
     }
 }
