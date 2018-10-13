@@ -18,14 +18,11 @@ public class Network {
     double[] outputValues;
     double[] hiddenValues;
 
-    StringBuilder outputText;
-
     public Network(int numberOfInputs, int numberOfHidden, int numberOfOutputs, double learningRate) {
         this.numberOfInputs = numberOfInputs;
         this.numberOfHidden = numberOfHidden;
         this.numberOfOutputs = numberOfOutputs;
         this.learningRate = learningRate;
-        this.outputText = new StringBuilder();
 
         this.weightBottom = new double[numberOfInputs][numberOfHidden];
         for (int i = 0; i < numberOfInputs; i++)
@@ -119,31 +116,32 @@ public class Network {
 
     void printNetwork(int networkNumber) {
         StringBuilder outputText = new StringBuilder();
-        outputText.append("\n==================== Network ").append(networkNumber).append(" ==========================\n\n");
-        outputText.append("Input =").append(numberOfInputs).append(" Hidden=").append(numberOfHidden).append(" Output=").append(numberOfOutputs);
+        outputText.append(String.format("\n==================== Network %d ==========================\n\n", networkNumber));
+        outputText.append(String.format("Input=%.3f Hidden=%.3f Output=%.3f",numberOfInputs, numberOfHidden, numberOfOutputs));
 
         outputText.append("\n\nWeights:");
         for (int i = 0; i < this.numberOfInputs; i++) {
-            outputText.append("\nInputs -> Hidden[").append(i).append(":").append(this.numberOfHidden).append("] =");
+            outputText.append(String.format("\nInputs -> Hidden[%d:%d] =", i, this.numberOfHidden));
             for (int j = 0; j < this.numberOfHidden; j++)
                 outputText.append(" ").append(this.weightBottom[i][j]);
         }
 
         for (int i = 0; i < this.numberOfHidden; i++) {
-            outputText.append("\nHidden -> Output[").append(i).append(":").append(this.numberOfOutputs).append("] =");
+            outputText.append(String.format("\nHidden -> Output[%d:%d] =", i, this.numberOfOutputs));
             for (int j = 0; j < this.numberOfOutputs; j++)
                 outputText.append(" ").append(this.weightTop[i][j]);
         }
 
-        outputText.append("\n\nBias:\nHidden[0:").append(this.numberOfHidden).append("] =");
+        outputText.append(String.format("\n\nBias:\nHidden[0:%d] =", this.numberOfHidden));
         for(int i = 0; i < this.numberOfHidden; i++) {
             outputText.append(" ").append(this.biasBottom[i]);
         }
 
-        outputText.append("\nOutput[0:").append(this.numberOfOutputs).append("] =");
+        outputText.append(String.format("\nOutput[0:%d] =", this.numberOfOutputs));
         for(int i = 0; i < this.numberOfOutputs; i++)
             outputText.append(" ").append(this.biasTop[i]);
 
+        outputText.append(String.format("\nConfidence: %.3f",this.confidence));
         System.out.println(outputText.toString());
     }
 }

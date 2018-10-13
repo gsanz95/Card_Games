@@ -20,6 +20,7 @@ class NetworkController {
 
     void runNetwork(double[] inputs, int idealAction, int networkNumber) {
         this.networkConclusion = groupedNetworks[networkNumber].predictAction(inputs);
+        System.out.println("\nConclusion: " + this.networkConclusion + " idealAction: "+ idealAction +"\n");
 
         if (changedWeights == true)
             groupedNetworks[networkNumber].printNetwork(networkNumber);
@@ -35,5 +36,7 @@ class NetworkController {
                 changedWeights = false;
             }
         }
+
+        System.out.println("\nRight: " + this.totalRight + "\nWrong: "+ this.totalWrong +"\n");
     }
 }

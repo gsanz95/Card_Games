@@ -112,14 +112,14 @@ public class Main {
             double[] inputs = {decksInPlay[PLAYER_POSITION].getDeckScore(),
                                 decksInPlay[DEALER_POSITION].getDeckScore()};
             networkControl.runNetwork(inputs, idealAction, 0);
-            logger.printDeck(decksInPlay[PLAYER_POSITION]);
+            //logger.printDeck(decksInPlay[PLAYER_POSITION]);
 
             idealAction = blackJackGame.getIdealAction();
             inputs[0] = decksInPlay[PLAYER_POSITION].getDeckScore();
             inputs[1] = decksInPlay[DEALER_POSITION].getDeckScore();
             networkControl.runNetwork(inputs, idealAction, 1);
-            logger.printDeck(decksInPlay[PLAYER_POSITION]);
-            logger.printDeck(decksInPlay[DEALER_POSITION]);
+            //logger.printDeck(decksInPlay[PLAYER_POSITION]);
+            //logger.printDeck(decksInPlay[DEALER_POSITION]);
 
             blackJackGame.playDealerRound();
             blackJackGame.finalizeGame();
