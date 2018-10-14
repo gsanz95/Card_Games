@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Card class contains attributes pertaining to a single card
  */
-public class Card{
+public class Card implements Cloneable{
 
     private Suit cardSuit;
     private int rank;
@@ -61,6 +61,15 @@ public class Card{
         comparedValue = Integer.compare(this.rank, cardToCompare.getRank());
 
         return comparedValue;
+    }
+
+    /**
+     * Makes a clone of this card
+     * @return New card object with same rank and suit
+     */
+    @Override
+    protected Card clone() {
+        return new Card(this.rank, this.cardSuit);
     }
 
     @Override

@@ -19,12 +19,10 @@ public class Main {
      */
     public static void main(String[] args){
 
-        Deck mainDeck = gamePreparer.makeDeck();
-
         //playUnlimitedWar(mainDeck);
         //playThreePlayerWar(mainDeck);
         //playClassicWar(mainDeck);
-        playBlackJack(mainDeck);
+        playBlackJack();
     }
 
     /**
@@ -94,20 +92,22 @@ public class Main {
         warGame.startGame(playerDecks);
     }
 
-    static void playBlackJack(Deck mainDeck){
+    static void playBlackJack(){
         Deck[] decksInPlay = new Deck[2];
 
         decksInPlay[PLAYER_POSITION] = new Deck("Player");
         decksInPlay[DEALER_POSITION] = new Deck("Dealer");
 
+        Deck mainDeck = gamePreparer.makeDeck();
+
         NetworkController networkControl = new NetworkController();
 
-        BlackJack blackJackGame = new BlackJack(decksInPlay[PLAYER_POSITION], decksInPlay[DEALER_POSITION], mainDeck);
-
+        BlackJack blackJackGame = new BlackJack(decksInPlay[PLAYER_POSITION], decksInPlay[DEALER_POSITION]);
+        blackJackGame.setDeck(mainDeck);
         blackJackGame.startGame();
 
         // 0 to Hold, 1 to Draw
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < 100; i++) {
             int idealAction = blackJackGame.getIdealAction();
             double[] inputs = {decksInPlay[PLAYER_POSITION].getDeckScore(),
                                 decksInPlay[DEALER_POSITION].getDeckScore()};
@@ -124,6 +124,8 @@ public class Main {
             blackJackGame.playDealerRound();
             blackJackGame.finalizeGame();
 
+            mainDeck.shuffleDeck();
+            blackJackGame.setDeck(mainDeck);
             //TO-DO Print Occurrences less and less often after 50 prints
         }
 

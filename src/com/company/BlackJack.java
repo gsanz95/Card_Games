@@ -11,12 +11,15 @@ class BlackJack {
     /**
      * Constructor
      */
-    public BlackJack(Deck playerHand, Deck dealerHand, Deck mainDeck) {
+    public BlackJack(Deck playerHand, Deck dealerHand) {
         this.logger = new GameLogger();
         this.NUMBER_OF_STARTING_CARDS = 2;
-        this.cardDeck = mainDeck;
         this.playerHand = playerHand;
         this.dealerHand = dealerHand;
+    }
+
+    public void setDeck(Deck deckToSet) {
+        this.cardDeck = deckToSet.clone();
     }
 
     /**

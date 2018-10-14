@@ -6,7 +6,7 @@ import java.util.Collections;
 /**
  *  Deck class contains a group of card classes
  */
-class Deck {
+class Deck implements Cloneable{
     private String ownerName;
     private ArrayList<Card> cards;
     private int deckScore;
@@ -89,6 +89,17 @@ class Deck {
 
         outputText.append(this.ownerName).append(" ").append(this.deckScore);
         return outputText.toString();
+    }
+
+    /**
+     * Clones the deck and returns a new clone deck
+     */
+    @Override
+    protected Deck clone(){
+        Deck clone = new Deck(this.getOwnerName());
+            for(Card singleCard : this.cards) clone.addCard(singleCard.clone());
+
+            return clone;
     }
 
     public void shuffleDeck(){

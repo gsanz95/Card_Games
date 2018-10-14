@@ -3,20 +3,20 @@ package com.company;
 import java.util.Random;
 
 public class Network {
-    int numberOfInputs;
-    int numberOfHidden;
-    int numberOfOutputs;
+    private int numberOfInputs;
+    private int numberOfHidden;
+    private int numberOfOutputs;
 
-    double learningRate;
-    double confidence;
+    private double learningRate;
+    private double confidence;
 
-    double[] biasBottom;
-    double[] biasTop;
-    double[][] weightBottom;
-    double[][] weightTop;
+    private double[] biasBottom;
+    private double[] biasTop;
+    private double[][] weightBottom;
+    private double[][] weightTop;
 
-    double[] outputValues;
-    double[] hiddenValues;
+    private double[] outputValues;
+    private double[] hiddenValues;
 
     public Network(int numberOfInputs, int numberOfHidden, int numberOfOutputs, double learningRate) {
         this.numberOfInputs = numberOfInputs;
@@ -46,7 +46,7 @@ public class Network {
         this.outputValues = new double[numberOfOutputs];
     }
 
-    double getRandom() {
+    private double getRandom() {
         Random randomGenerator = new Random();
         double randomNumber = (double)randomGenerator.nextInt(200);
         return (randomNumber/100) - 1;
@@ -117,7 +117,7 @@ public class Network {
     void printNetwork(int networkNumber) {
         StringBuilder outputText = new StringBuilder();
         outputText.append(String.format("\n==================== Network %d ==========================\n\n", networkNumber));
-        outputText.append(String.format("Input=%.3f Hidden=%.3f Output=%.3f",numberOfInputs, numberOfHidden, numberOfOutputs));
+        outputText.append(String.format("Input=%d Hidden=%d Output=%d",numberOfInputs, numberOfHidden, numberOfOutputs));
 
         outputText.append("\n\nWeights:");
         for (int i = 0; i < this.numberOfInputs; i++) {
