@@ -20,7 +20,9 @@ class NetworkController {
 
     void runNetwork(double[] inputs, int idealAction, int networkNumber) {
         this.networkConclusion = this.groupedNetworks[networkNumber].predictAction(inputs);
-        System.out.println("\nConclusion: " + this.networkConclusion + " idealAction: "+ idealAction +"\n");
+
+        if((totalWrong + totalRight) < 20)
+            System.out.println("\nConclusion: " + this.networkConclusion + " idealAction: "+ idealAction +"\n");
 
         if (this.changedWeights == true) {
             this.groupedNetworks[networkNumber].printNetwork(networkNumber);
@@ -33,10 +35,15 @@ class NetworkController {
             this.totalWrong += 1;
 
             this.groupedNetworks[networkNumber].adjustNetwork(inputs, idealAction);
-            this.groupedNetworks[networkNumber].printNetwork(-1);
+            if((totalWrong + totalRight) < 20)
+                this.groupedNetworks[networkNumber].printNetwork(-1);
             }
 
         double total = this.totalRight + this.totalWrong;
         System.out.println(String.format("\nRight: %.2f Wrong: %.2f\n",this.totalRight/total, this.totalWrong/total));
+    }
+
+    double getTotal(){
+        return this.totalRight + this.totalWrong;
     }
 }

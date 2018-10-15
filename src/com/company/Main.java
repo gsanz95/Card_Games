@@ -103,11 +103,13 @@ public class Main {
         NetworkController networkControl = new NetworkController();
 
         BlackJack blackJackGame = new BlackJack(decksInPlay[PLAYER_POSITION], decksInPlay[DEALER_POSITION]);
-        blackJackGame.setDeck(mainDeck);
-        blackJackGame.startGame();
 
         // 0 to Hold, 1 to Draw
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 10000; i++) {
+            mainDeck.shuffleDeck();
+            blackJackGame.setDeck(mainDeck);
+            blackJackGame.startGame();
+
             int idealAction = blackJackGame.getIdealAction();
             double[] inputs = {decksInPlay[PLAYER_POSITION].getDeckScore(),
                                 decksInPlay[DEALER_POSITION].getDeckScore()};
@@ -124,9 +126,8 @@ public class Main {
             blackJackGame.playDealerRound();
             blackJackGame.finalizeGame();
 
-            mainDeck.shuffleDeck();
-            blackJackGame.setDeck(mainDeck);
-            //TO-DO Print Occurrences less and less often after 50 prints
+            if(i > 9998)
+                System.out.println(networkControl.getTotal());
         }
 
 

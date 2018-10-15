@@ -106,4 +106,9 @@ class Deck implements Cloneable{
         Collections.shuffle(this.cards);
     }
 
+    public void clearDeck() {
+        this.cards.clear();
+        this.deckScore = 0;
+    }
+
 }

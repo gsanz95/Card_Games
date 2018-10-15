@@ -87,13 +87,8 @@ class BlackJack {
      * if two have the same number, printTie is called.
      *
      */
-    void finalizeGame(){
-        if(playerHand.getDeckScore() > 21)
-            System.out.println("Dealer Wins");
-        else if(playerHand.getDeckScore() < dealerHand.getDeckScore()){
-            System.out.println("Dealer Wins");
-        } else{
-            System.out.println("Player Wins");
-        }
+    void finalizeGame() {
+        this.playerHand.clearDeck();
+        this.dealerHand.clearDeck();
     }
 }
